@@ -11,9 +11,10 @@ def get_players
     league_id = ENV['LEAGUE_ID']
     auth_token = ENV['AUTH_TOKEN']
 
-    url = `https://api.fantasy.nfl.com/v1/league/players?leagueId=#{league_id}&count=500&sort=yes&authToken=#{auth_token}&format=json`
-
+    url = "https://api.fantasy.nfl.com/v1/league/players?leagueId=#{league_id}&count=500&sort=yes&authToken=#{auth_token}&format=json"
+    
     response = HTTParty.get(url)
+    puts response
     response.parsed_response
 
     parsed_json = JSON.parse(response.body)
