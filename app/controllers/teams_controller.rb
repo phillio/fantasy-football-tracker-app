@@ -1,17 +1,30 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :update, :destroy]
+  before_action :authorize_request, except: %i[index show]
+  # before_action :authorize_request
 
   # GET /teams
   def index
     @teams = Team.all
 
-    render json: @teams
+    render json: { message: "ok", teams: @teams }
   end
 
   # GET /teams/1
+  # def show
+  #   render json: @team
+  # end
   def show
-    render json: @team
+    begin
+      @team = Team.find(params[:id])
+      render json: { message: "ok", team: @team }
+    rescue ActiveRecord::RecordNotFound
+      render json: { message: 'no team matches that ID' }, status: 404
+    rescue StandardError => e
+      render json: { message: e.to_s }, status: 500
+    end
   end
+
 
   # POST /teams
   def create

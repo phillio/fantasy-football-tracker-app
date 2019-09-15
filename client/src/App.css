@@ -1,33 +1,81 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-container {
   display: flex;
   flex-direction: column;
+  text-align: center;
+  background-image: url("https://image.shutterstock.com/z/stock-vector-modern-professional-fantasy-sports-template-logo-design-457880965.jpg");
+  height: 100vh;
+  height: 100vh;
+}
+
+
+h1 {
+  margin: 0;
+}
+
+header {
+  display: flex;
+  font-family: 'Arial';
+  text-align: left;
+  padding: 2rem;
+  background: linear-gradient(to top, #081cd3, #5b9ef7, #a7cffd);
+  background-repeat: none;
+  width: 100%;
+  top: 0;
+}
+
+header>h1>a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.app-body {
+  display: flex;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.auth-container {
+  background: linear-gradient(to bottom, #16b911, #7aff90, #bbffb9);
+  width: 250px;
+  height: 500px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.team-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  grid-gap: 10px;
+  margin: 8rem 10rem;
+}
+
+.team-card {
+  background: #d6d6d6;
+  cursor: pointer;
+}
+
+.team-page {
+  margin: 8rem auto;
+  background: #d6d6d6;
+  width: 20rem;
+  padding: 0rem 0rem 2rem 0rem;
+}
+
+.create-form {
+  display: grid;
+  width: 20rem;
+  margin: 15rem auto;
+  background: #d6d6d6;
+  padding: 2rem 2rem 3.5rem 2rem;
+}
+
+img {
+  max-width: 15rem;
+  padding: 2rem;
+}
+
+.plus-sign {
+  max-width: 4rem;
+  cursor: pointer;
 }
