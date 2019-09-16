@@ -1,7 +1,8 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :update, :destroy]
-  before_action :authorize_request, except: %i[index show]
+  before_action :authorize_request, except: %i[index show create update]
   # before_action :authorize_request
+  # skip_before_action :verify_authenticity_token
 
   # GET /teams
   def index
@@ -29,6 +30,7 @@ class TeamsController < ApplicationController
   # POST /teams
   def create
     @team = Team.new(team_params)
+    # puts @team
 
     if @team.save
       render json: @team, status: :created, location: @team
