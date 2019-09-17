@@ -37,11 +37,11 @@ const createTeam = data => {
   return fetch(`${baseUrl}/teams`, opts).then(resp => resp.json());
 };
 
-const readAllTeams = () => {
+const readAllTeams = async () => {
   try {
-    return fetch(`${baseUrl}/teams`)
-      .then(resp => resp.json())
-      .then(json => json.teams)
+    const teams = await Axios.get(`${baseUrl}/teams`)
+    return teams
+
   } catch (error) {
     throw error
   }

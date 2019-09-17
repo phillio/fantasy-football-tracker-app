@@ -3,8 +3,9 @@ import { withRouter } from 'react-router';
 
 function Players(props) {
   return (
-    <div className="players-container">
       {props.players.map(player => (
+    <div className="players-container">
+        <h6>Player List</h6>
         <div
           key={player.id}
           className="player-card"

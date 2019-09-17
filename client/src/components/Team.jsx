@@ -14,6 +14,7 @@ class Team extends Component {
   }
 
   componentDidMount() {
+    console.log('propsid',this.props.id)
     this.props.mountEditForm(this.props.id);
     // this.setState({players: this.props.players})
   }
@@ -22,13 +23,13 @@ class Team extends Component {
     const { team } = this.props;
     // console.log("props in Team", players);
     const players = this.state.players
-    console.log(players)
+    // console.log(players)
     if (players) {
       return (
-        <div>
+        <div className="team-wrapper">
         <div className="team-page">
           {team === undefined ? (
-            <h2>Loading . . .</h2>
+            <h2>Fantasy Football Research...</h2>
           ) : (
             <div>
               <h1>{team.name}</h1>
@@ -52,7 +53,7 @@ class Team extends Component {
                   )}
                 />
               ) : (
-                <>
+                <div className="player-list">
                   <button
                     onClick={() => {
                       this.setState({
@@ -71,7 +72,7 @@ class Team extends Component {
                   >
                     Delete
                   </button>
-                </>
+                </div>
               )}
             </div>
           )}
@@ -79,10 +80,35 @@ class Team extends Component {
         <div className="players-page">
           {this.state.players.map(player => {
             return (
-              <div>
-                <p>Player Name : {player.name}</p>
-                <p>Team : {player.teamAbbr}</p>
-                <p>Season Rank : {player.rank}</p>
+              <div className="player-card">
+                <p>Player Name</p>
+                <p>Team</p>
+                <p>Position</p>
+                <p>Owned %</p>
+                <p>SEASON Rank</p>
+                <p>Ssn Points</p>
+                <p>Ssn Projection</p>
+                <p>WEEK #</p>
+                <p>Wk's Points</p>
+                <p>Wk's Proj. Pts</p>
+                <p>Wk's Pass Yds</p>
+                <p>Wk's Pass TDs</p>
+                <p>Wk's Pass Int</p>
+                <p>Wk's Rush Yds</p>
+                <p>Wk's Rush TD</p>
+                <p>Wk's Rec. Yd</p>
+                <p>Wk's Rec. TD</p>
+                <p>Wk's Fum. Lost</p>
+                <p>Wk's Fum. TD</p>
+                <p>Ssn's Pass Yds</p>
+                <p>Ssn's Pass TDs</p>
+                <p>Ssn's Pass Int</p>
+                <p>Ssn's Rush Yds</p>
+                <p>Ssn's Rush TD</p>
+                <p>Ssn's Rec. Yd</p>
+                <p>Ssn's Rec. TD</p>
+                <p>Ssn's Fum. Lost</p>
+                <p>Ssn's Fum. TD</p>
               </div>
             );
           })}

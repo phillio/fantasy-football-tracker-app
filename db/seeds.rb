@@ -8,11 +8,14 @@ def get_players
     # https://www.twilio.com/blog/2015/10/4-ways-to-parse-a-json-api-with-ruby.html
     require 'httparty'
 
+    # User.create(name: 'Phil', email: 'phil@fakemail.com', password: 'phil123', username: 'phil')
+    # Team.create(name: 'champs', user_id: 1)
+
     league_id = ENV['LEAGUE_ID']
     auth_token = ENV['AUTH_TOKEN']
 
     url = "https://api.fantasy.nfl.com/v1/league/players?leagueId=#{league_id}&count=500&sort=yes&authToken=#{auth_token}&format=json"
-    
+    puts url
     response = HTTParty.get(url)
     
     response.parsed_response

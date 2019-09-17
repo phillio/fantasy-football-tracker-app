@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
+  # skip_before_action :verify_authenticity_token
   before_action :set_user, only: [:show, :update, :destroy]
   before_action :authorize_request, except: [:create]
-  skip_before_action :verify_authenticity_token
 
   # GET /users
   def index
@@ -41,12 +41,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-    # Permit a :password instead of :password_digest from bcrypt gem
-    # def user_params
-    #   params.require(:user).permit( :username, :email, :password )
-    # end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
