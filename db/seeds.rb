@@ -29,7 +29,7 @@ def get_players
             teamAbbr: player['teamAbbr'], 
             rosterSlot: player['position'], 
             percentOwned: player['percentOwned'], 
-            rank: player['ranks'], 
+            rank: player['ranks']['season']['rank'], 
             fantasyPts: player['fantasyPts'], 
             fantasyProjectedPts: player['fantasyProjectedPts'],
             weekStats: player['weekStats'], 

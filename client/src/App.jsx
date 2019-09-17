@@ -17,7 +17,8 @@ import {
   updateTeam,
   destroyTeam,
   loginUser,
-  registerUser
+  registerUser,
+  getPlayers
 } from "./services/api-helper";
 
 import "./App.css";
@@ -26,7 +27,8 @@ class App extends Component {
   state = {
     teams: [],
     teamForm: {
-      name: ""
+      name: "",
+      user_id: null
     },
     currentUser: null,
     authFormData: {
@@ -34,7 +36,8 @@ class App extends Component {
       username: "",
       email: "",
       password: ""
-    }
+    },
+    players: []
   };
 
   getTeams = async () => {
@@ -42,10 +45,16 @@ class App extends Component {
     this.setState({
       teams
     });
+    const players = await getPlayers();
+    this.setState({
+      players
+    });
+    // console.log('players',players)
   };
 
   newTeam = async e => {
     e.preventDefault();
+    console.log(this.state.teamForm);
     const team = await createTeam(this.state.teamForm);
     this.setState(prevState => ({
       teams: [...prevState.teams, team],
@@ -99,10 +108,15 @@ class App extends Component {
 
   handleLogin = async () => {
     const userData = await loginUser(this.state.authFormData);
+    localStorage.setItem("jwt", userData.token);
+    localStorage.setItem("user_id", userData.id);
+    const user_id = localStorage.getItem("user_id");
     this.setState({
+      teamForm: {
+        user_id
+      },
       currentUser: decode(userData.token)
     });
-    localStorage.setItem("jwt", userData.token);
   };
 
   handleRegister = async e => {
@@ -113,6 +127,7 @@ class App extends Component {
 
   handleLogout = async () => {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("user_id");
     this.setState({
       currentUser: null
     });
@@ -131,7 +146,7 @@ class App extends Component {
   componentDidMount() {
     this.getTeams();
     const checkUser = localStorage.getItem("jwt");
-    if (checkUser) {
+    if (checkUser !== "undefined") {
       const user = decode(checkUser);
       this.setState({
         currentUser: user
@@ -218,6 +233,8 @@ class App extends Component {
             render={props => {
               const { id } = props.match.params;
               const team = this.state.teams.find(el => el.id === parseInt(id));
+              const players = this.state.players.data
+              // console.log('passing players data down to Team.jsx',players)
               return (
                 <Team
                   id={id}
@@ -227,6 +244,7 @@ class App extends Component {
                   editTeam={this.editTeam}
                   teamForm={this.state.teamForm}
                   deleteTeam={this.deleteTeam}
+                  players={players}
                 />
               );
             }}

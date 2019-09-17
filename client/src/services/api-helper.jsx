@@ -1,3 +1,4 @@
+import Axios from "axios";
 const baseUrl = "http://localhost:3000";
 
 export const loginUser = loginData => {
@@ -67,4 +68,19 @@ const destroyTeam = id => {
   return fetch(`${baseUrl}/teams/${id}`, opts);
 };
 
-export { createTeam, readAllTeams, readOneTeam, updateTeam, destroyTeam };
+const getPlayers = async () => {
+  try {
+    const players = await Axios.get(`${baseUrl}/players`)
+    return players
+    // console.log(players)
+    
+
+    // const resp = await fetch(`${baseUrl}/players`)
+    // console.log(resp)
+
+  } catch (error) {
+    throw error
+  }
+};
+
+export { createTeam, readAllTeams, readOneTeam, updateTeam, destroyTeam, getPlayers };

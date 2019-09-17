@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :update, :destroy]
-  before_action :authorize_request, except: %i[index show create update]
+  before_action :authorize_request, except: %i[index show create update destroy]
+  # before_action :authorize_request, except: %i[index show]
   # before_action :authorize_request
   # skip_before_action :verify_authenticity_token
 
