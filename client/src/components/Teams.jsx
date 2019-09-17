@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 
 function Teams(props) {
+    console.log(props)
   return (
     <div className="team-container">
       {props.teams.map(team => (

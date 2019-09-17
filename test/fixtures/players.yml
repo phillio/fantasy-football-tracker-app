@@ -5,19 +5,59 @@ one:
   teamAbbr: MyString
   rosterSlot: MyString
   percentOwned: MyString
-  rank: MyString
-  fantasyPts: MyString
-  fantasyProjectedPts: MyString
-  weekStats: MyString
-  seasonStats: MyString
+  seasonRank: MyString
+  fantasyPtsSeason: MyString
+  fantasyPtsWeek: MyString
+  fantasyPtsWeekValue: MyString
+  fantasyProjectedPtsSeason: MyString
+  fantasyProjectedPtsWeek: MyString
+  fantasyProjectedPtsWeekValue: MyString
+  weekStatsPassYds: MyString
+  weekStatsPassTD: MyString
+  weekStatsPassInt: MyString
+  weekStatsRushYds: MyString
+  weekStatsRushTD: MyString
+  weekStatsRecYds: MyString
+  weekStatsRecTD: MyString
+  weekStatsFumLost: MyString
+  weekStatsFumTD: MyString
+  seasonStatsPassYds: MyString
+  seasonStatsPassTD: MyString
+  seasonStatsPassInt: MyString
+  seasonStatsRushYds: MyString
+  seasonStatsRushTD: MyString
+  seasonStatsRecYds: MyString
+  seasonStatsRecTD: MyString
+  seasonStatsFumLost: MyString
+  seasonStatsFumTD: MyString
 
 two:
   name: MyString
   teamAbbr: MyString
   rosterSlot: MyString
   percentOwned: MyString
-  rank: MyString
-  fantasyPts: MyString
-  fantasyProjectedPts: MyString
-  weekStats: MyString
-  seasonStats: MyString
+  seasonRank: MyString
+  fantasyPtsSeason: MyString
+  fantasyPtsWeek: MyString
+  fantasyPtsWeekValue: MyString
+  fantasyProjectedPtsSeason: MyString
+  fantasyProjectedPtsWeek: MyString
+  fantasyProjectedPtsWeekValue: MyString
+  weekStatsPassYds: MyString
+  weekStatsPassTD: MyString
+  weekStatsPassInt: MyString
+  weekStatsRushYds: MyString
+  weekStatsRushTD: MyString
+  weekStatsRecYds: MyString
+  weekStatsRecTD: MyString
+  weekStatsFumLost: MyString
+  weekStatsFumTD: MyString
+  seasonStatsPassYds: MyString
+  seasonStatsPassTD: MyString
+  seasonStatsPassInt: MyString
+  seasonStatsRushYds: MyString
+  seasonStatsRushTD: MyString
+  seasonStatsRecYds: MyString
+  seasonStatsRecTD: MyString
+  seasonStatsFumLost: MyString
+  seasonStatsFumTD: MyString

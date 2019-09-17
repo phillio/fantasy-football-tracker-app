@@ -83,10 +83,12 @@ class App extends Component {
 
   handleFormChange = e => {
     const { name, value } = e.target;
+    const user_id = localStorage.getItem("user_id")
     this.setState(prevState => ({
       teamForm: {
         ...prevState.teamForm,
-        [name]: value
+        [name]: value,
+        user_id: user_id
       }
     }));
   };

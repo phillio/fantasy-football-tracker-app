@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
+  resources :players
   post '/auth/login', to: 'authentication#login'
   # get '/users/verify', to: 'users#verify'
 
-  resources :users do
-    # resources :teams
-    resources :players
-  end
+  # resources :users do
+  #   # resources :teams
+  #   end
 
   
   # resources :users, only: [:show, :update, :destroy] do

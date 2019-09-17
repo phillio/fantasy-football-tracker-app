@@ -30,8 +30,9 @@ class TeamsController < ApplicationController
 
   # POST /teams
   def create
-    @team = Team.new(team_params)
-    # puts @team
+    @team = Team.new(params[:team])
+    puts "THIS IS TEAMS CONTROLLER @TEAM --------------"
+    puts @team
 
     if @team.save
       render json: @team, status: :created, location: @team
