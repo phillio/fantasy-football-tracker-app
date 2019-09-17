@@ -10,13 +10,19 @@ class Teams extends Component {
   }
 
   componentDidMount() {
+    //   this.renderTeams()
       this.setState({teams: this.props.teams.data})
   }
 
-  renderTeams() {}
+//   renderTeams = () => {
+//       const getTeams = localStorage.getItem("teams")
+//       this.setState({teams: getTeams})
+//   }
 
   render() {
-
+    //   const teams = this.props.teams.data
+    //   const storeTeams = localStorage.setItem("teams", teams)
+    //   console.log(storeTeams)
     return (
       <div className="team-container">
         {this.props.teams.data.map(team => (
@@ -25,7 +31,6 @@ class Teams extends Component {
             className="team-card"
             onClick={() => {
               this.props.history.push(`/teams/${team.id}`);
-              window.scrollTo(0, 0);
             }}
           >
             <p>{team.name}</p>

@@ -54,12 +54,21 @@ class App extends Component {
     e.preventDefault();
     console.log(this.state.teamForm);
     const team = await createTeam(this.state.teamForm);
-    this.setState(prevState => ({
-      teams: [...prevState.teams, team],
+    const teamCopy = team;
+    this.setState({
+      teams: team,
       teamForm: {
         name: ""
       }
-    }));
+    });
+    let storeTeam;
+    let updatedLocalTeam;
+    const checkForTeam = localStorage.getItem("teams");
+    if (checkForTeam !== "undefined") {
+      return (updatedLocalTeam = [teamCopy, checkForTeam]);
+    } else {
+      return (storeTeam = localStorage.setItem("teams", updatedLocalTeam));
+    }
   };
 
   editTeam = async () => {
@@ -74,9 +83,11 @@ class App extends Component {
 
   deleteTeam = async id => {
     await destroyTeam(id);
-    this.setState(prevState => ({
-      team: prevState.teams.filter(team => team.id !== id)
-    }));
+    const teams = await readAllTeams();
+    this.setState({
+      team: teams
+    });
+    console.log(this.state.teams);
   };
 
   handleFormChange = e => {
@@ -93,7 +104,7 @@ class App extends Component {
 
   mountEditForm = async id => {
     const teams = await readAllTeams();
-    console.log(teams)
+    console.log(teams);
     const team = teams.data.find(el => el.id === parseInt(id));
     this.setState({
       teams,
@@ -144,7 +155,7 @@ class App extends Component {
     }));
   };
 
-  componentDidMount = async () => {
+  checkForUser = async () => {
     await this.getTeams();
     try {
       const checkUser = localStorage.getItem("jwt");
@@ -154,11 +165,20 @@ class App extends Component {
           currentUser: user
         });
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
+    // try {
+    //   const checkLocalUser = localStorage.getItem("user_id")
+    //   if (checkLocalUser !== "undefined") {
+    //     this.setState({
+    //       currentUser: checkLocalUser
+    //     })
+    //   }
+    // } catch (error) {}
   };
 
+  componentDidMount = async () => {
+    this.checkForUser();
+  };
 
   render() {
     return (
@@ -193,14 +213,53 @@ class App extends Component {
           <Route
             exact
             path="/login"
-            render={() => (
-              <Login
-                handleLogin={this.handleLogin}
-                handleChange={this.authHandleChange}
-                formData={this.state.authFormData}
-              />
-            )}
+            render={props => {
+              this.checkForUser();
+              if (!this.state.currentUser) {
+                return (
+                  <Login
+                    handleLogin={this.handleLogin}
+                    handleChange={this.authHandleChange}
+                    formData={this.state.authFormData}
+                  />
+                );
+              } else {
+                return (
+                  <button
+                      onClick={() => {
+                        this.props.history.push("/");
+                      }}
+                    ></button>
+                )
+              }
+            }}
           />
+
+          <Route
+            path="/teams/:id"
+            render={props => {
+              const { id } = props.match.params;
+              const team = this.state.teams.data.find(
+                el => el.id === parseInt(id)
+              );
+              const players = this.state.players.data;
+              // console.log('passing players data down to Team.jsx',players)
+              return (
+                <Team
+                  id={id}
+                  team={team}
+                  handleFormChange={this.handleFormChange}
+                  mountEditForm={this.mountEditForm}
+                  editTeam={this.editTeam}
+                  teamForm={this.state.teamForm}
+                  deleteTeam={this.deleteTeam}
+                  players={players}
+                  saveTeam={this.saveTeam}
+                />
+              );
+            }}
+          />
+
           <Route
             exact
             path="/register"
@@ -216,13 +275,13 @@ class App extends Component {
             exact
             path="/"
             render={() => (
-                <Teams
-                  teams={this.state.teams}
-                  teamForm={this.state.teamForm}
-                  handleFormChange={this.handleFormChange}
-                  newTeam={this.newTeam}
-                  readAllTeams={this.readAllTeams}
-                />
+              <Teams
+                teams={this.state.teams}
+                teamForm={this.state.teamForm}
+                handleFormChange={this.handleFormChange}
+                newTeam={this.newTeam}
+                readAllTeams={this.readAllTeams}
+              />
             )}
           />
           <Route
@@ -239,8 +298,9 @@ class App extends Component {
             path="/teams/:id"
             render={props => {
               const { id } = props.match.params;
-              console.log('teams/id',this.state.teams)
-              const team = this.state.teams.data.find(el => el.id === parseInt(id));
+              const team = this.state.teams.data.find(
+                el => el.id === parseInt(id)
+              );
               const players = this.state.players.data;
               // console.log('passing players data down to Team.jsx',players)
               return (
@@ -253,6 +313,7 @@ class App extends Component {
                   teamForm={this.state.teamForm}
                   deleteTeam={this.deleteTeam}
                   players={players}
+                  saveTeam={this.saveTeam}
                 />
               );
             }}
