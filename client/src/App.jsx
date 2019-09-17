@@ -227,36 +227,11 @@ class App extends Component {
                 return (
                   <button
                       onClick={() => {
-                        this.props.history.push("/");
+                        this.props.history.push("/login");
                       }}
                     ></button>
                 )
               }
-            }}
-          />
-
-          <Route
-            path="/teams/:id"
-            render={props => {
-              const { id } = props.match.params;
-              const team = this.state.teams.data.find(
-                el => el.id === parseInt(id)
-              );
-              const players = this.state.players.data;
-              // console.log('passing players data down to Team.jsx',players)
-              return (
-                <Team
-                  id={id}
-                  team={team}
-                  handleFormChange={this.handleFormChange}
-                  mountEditForm={this.mountEditForm}
-                  editTeam={this.editTeam}
-                  teamForm={this.state.teamForm}
-                  deleteTeam={this.deleteTeam}
-                  players={players}
-                  saveTeam={this.saveTeam}
-                />
-              );
             }}
           />
 

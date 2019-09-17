@@ -93,7 +93,7 @@ img {
   display: flex;
   flex-direction: column;
   overflow: auto;
-  width: 95vw;
+  width: 100vw;
   height: 800px;
   overflow: auto;
 }
