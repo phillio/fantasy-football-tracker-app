@@ -3,11 +3,14 @@ import TeamEdit from "./TeamEdit";
 import { Route } from "react-router-dom";
 import { withRouter } from "react-router";
 
+import { getPlayers } from "../services/api-helper";
+
 class Team extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      teams: [],
       isEdit: false,
       players: props.players
     };
@@ -29,8 +32,13 @@ class Team extends Component {
     // console.log("props in Team", players);
     const players = this.state.players;
     // console.log(players)
+
+
+
+    // const players = getPlayers()
+    // console.log('players-R-us', players)
     if (players) {
-      // const storePlayers = localStorage.setItem("players", players)
+      // const storePlayers = localStorage.setItem("players", JSON.stringify(players))
       // console.log(storePlayers)
       return (
         <div className="team-wrapper">
@@ -52,7 +60,8 @@ class Team extends Component {
                           this.props.editTeam();
                           this.setState({ isEdit: false });
                           this.props.history.push(
-                            `/teams/${this.props.teamForm.id}`
+                            `/login`
+                            // `/login`
                           );
                         }}
                         teamForm={this.props.teamForm}
@@ -74,7 +83,7 @@ class Team extends Component {
                     <button
                       onClick={() => {
                         this.props.deleteTeam(team.id);
-                        this.props.history.push("/login");
+                        this.props.history.push("/");
                       }}
                     >
                       Delete

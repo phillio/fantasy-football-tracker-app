@@ -45,7 +45,6 @@ class App extends Component {
   getTeams = async () => {
     const teams = await readAllTeams();
     const players = await getPlayers();
-    // console.log('getteams',players)
     this.setState({
       teams,
       players
@@ -109,7 +108,7 @@ class App extends Component {
 
   mountEditForm = async id => {
     const teams = await readAllTeams();
-    // console.log(teams);
+    console.log(teams);
     const team = teams.data.find(el => el.id === parseInt(id));
     this.setState({
       teams,
@@ -216,13 +215,8 @@ class App extends Component {
       const checkUser = localStorage.getItem("jwt");
       if (checkUser !== "undefined") {
         const user = decode(checkUser);
-        const user_id = localStorage.getItem("user_id")
         this.setState({
-          currentUser: user,
-          teamForm: {
-            name: this.state.teamForm.name,
-            user_id: user_id
-          }
+          currentUser: user
         });
       }
     } catch (error) {}
@@ -344,7 +338,6 @@ class App extends Component {
             path="/create/team"
             render={() => (
               <TeamCreate
-                user_id={this.state.teamForm.user_id}
                 handleFormChange={this.handleFormChange}
                 teamForm={this.state.teamForm}
                 newTeam={this.newTeam}

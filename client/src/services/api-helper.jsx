@@ -72,6 +72,7 @@ const destroyTeam = id => {
 const getPlayers = async () => {
   try {
     const players = await Axios.get(`${baseUrl}/players`)
+    // console.log('api-helper getplayrs', players)
     return players
     // console.log(players)
     
