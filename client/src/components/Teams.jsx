@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import Axios from 'axios';
 
 
 import { getPlayers, readAllTeams } from "../services/api-helper";
 
 class Teams extends Component {
   constructor(props) {
-    super(props);zs
+    super(props);
     this.state = {
       teams: [],
       refresh: false
@@ -18,7 +17,6 @@ class Teams extends Component {
     //   this.renderTeams()
     //   this.setState({teams: this.props.teams.data})
     await this.getTeams()
-    console.log(this.state.teams)
   }
 
 //   renderTeams = () => {
@@ -26,9 +24,11 @@ class Teams extends Component {
 //       this.setState({teams: getTeams})
 //   }
 
+
+
+
   getTeams = async () => {
-    //   const teams = await readAllTeams()
-    const teams = await Axios.get('http://localhost:3000/teams')
+      const teams = await readAllTeams()
       this.setState({teams: teams.data})
     //   console.log('teams getteams',this.state.teams)
   }
@@ -45,8 +45,6 @@ class Teams extends Component {
     const user_id = localStorage.getItem("user_id")
     // console.log('teams jsx user id',user_id)
     // console.log('teams jsx teams-data', this.props.teams.data)
-    // console.log(this.state.teams)
-    
     return (
       <div className="team-container">
         {this.props.teams.data.map(team => team.user_id == user_id ? (

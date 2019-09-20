@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import { withRouter } from "react-router";
 
 import { getPlayers } from "../services/api-helper";
+import Axios from "axios";
 
 class Team extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class Team extends Component {
     this.state = {
       teams: [],
       isEdit: false,
-      players: props.players
+      players: props.players,
+      newTeam: null
     };
   }
 
@@ -27,12 +29,30 @@ class Team extends Component {
   //     this.setState({teams: getPlayers})
   // }
 
+  componentDidUpdate = async () => {
+    if (this.props.team === undefined) {
+      const teams = await Axios.get('http://localhost:3000/teams')
+      this.setState({
+        teams: teams.data
+      })
+
+      this.forceUpdate()
+
+      // console.log(this.state.teams)
+    }
+  }
+
   render() {
     const { team } = this.props;
     // console.log("props in Team", players);
     const players = this.state.players;
     // console.log(players)
-
+    let newTeam
+    if (team) {
+      newTeam = team.name
+    } else {
+      newTeam = this.state.newTeam
+    }
 
 
     // const players = getPlayers()
@@ -47,7 +67,7 @@ class Team extends Component {
               <h2>Fantasy Football Research...</h2>
             ) : (
               <div>
-                <h1>{team.name}</h1>
+                <h1>{this.props.teamForm.name}</h1>
                 <hr />
                 {this.state.isEdit ? (
                   <Route
@@ -58,11 +78,7 @@ class Team extends Component {
                         handleSubmit={e => {
                           e.preventDefault();
                           this.props.editTeam();
-                          this.setState({ isEdit: false });
-                          this.props.history.push(
-                            `/login`
-                            // `/login`
-                          );
+                          this.setState({ isEdit: false, newTeam: this.props.teamForm.name });
                         }}
                         teamForm={this.props.teamForm}
                       />

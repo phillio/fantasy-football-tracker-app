@@ -349,6 +349,7 @@ class App extends Component {
                 teamForm={this.state.teamForm}
                 newTeam={this.newTeam}
                 newRedirect={this.newTeamRenderRedirect}
+                teams={this.state.teams}
               />
             )}
           />

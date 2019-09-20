@@ -67,7 +67,7 @@ class TeamCreate extends Component {
         );
     } else {
         return (
-            <Redirect to={`/teams/${this.state.newTeam.id}`} />
+            <Redirect to={`/teams/${this.state.newTeam.id}`}/>
         )
     }
 
