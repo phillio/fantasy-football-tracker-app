@@ -33,7 +33,7 @@ const createTeam = data => {
       "Content-Type": "application/json"
     }
   };
-  console.log(opts)
+  // console.log(opts)
   return fetch(`${baseUrl}/teams`, opts).then(resp => resp.json());
 };
 

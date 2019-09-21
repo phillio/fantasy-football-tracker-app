@@ -27,6 +27,7 @@ class Teams extends Component {
 
 
 
+
   getTeams = async () => {
       const teams = await readAllTeams()
       this.setState({teams: teams.data})
@@ -45,9 +46,10 @@ class Teams extends Component {
     const user_id = localStorage.getItem("user_id")
     // console.log('teams jsx user id',user_id)
     // console.log('teams jsx teams-data', this.props.teams.data)
+    // console.log('dumb props',this.props)
     return (
       <div className="team-container">
-        {this.props.teams.data.map(team => team.user_id == user_id ? (
+        {this.state.teams.map(team => team.user_id == user_id ? (
           <div
             key={team.id}
             className="team-card"

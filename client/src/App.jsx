@@ -44,6 +44,7 @@ class App extends Component {
 
   getTeams = async () => {
     const teams = await readAllTeams();
+    // console.log("getting teams", teams);
     const players = await getPlayers();
     // console.log('getteams',players)
     this.setState({
@@ -88,11 +89,13 @@ class App extends Component {
 
   deleteTeam = async id => {
     await destroyTeam(id);
-    const teams = await readAllTeams();
+    // const teams = await readAllTeams();
+    const teams = await this.getTeams();
     this.setState({
-      team: teams
+      teams: teams
     });
-    console.log(this.state.teams);
+    // console.log(this.state.teams);
+    // this.forceUpdate();
   };
 
   handleFormChange = e => {
@@ -139,11 +142,7 @@ class App extends Component {
     //     }}
     //   ></button>
 
-    return (
-      <div>
-        {this.renderRedirect()}
-      </div>
-    );
+    return <div>{this.renderRedirect()}</div>;
   };
 
   newTeamRenderRedirect = () => {
@@ -157,18 +156,22 @@ class App extends Component {
   };
 
   handleLogin = async () => {
-    const userData = await loginUser(this.state.authFormData);
-    const teams = await readAllTeams()
-    localStorage.setItem("jwt", userData.token);
-    localStorage.setItem("user_id", userData.id);
-    localStorage.setItem("teamslocal", JSON.stringify(teams))
-    const user_id = localStorage.getItem("user_id");
-    this.setState({
-      teamForm: {
-        user_id
-      },
-      currentUser: decode(userData.token)
-    });
+    try {
+      const userData = await loginUser(this.state.authFormData);
+      const teams = await readAllTeams();
+      localStorage.setItem("jwt", userData.token);
+      localStorage.setItem("user_id", userData.id);
+      localStorage.setItem("teamslocal", JSON.stringify(teams));
+      const user_id = localStorage.getItem("user_id");
+      this.setState({
+        teamForm: {
+          user_id
+        },
+        currentUser: decode(userData.token)
+      });
+    } catch (error) {
+      console.log('check login info')
+    }
   };
 
   handleRegister = async e => {
@@ -180,8 +183,8 @@ class App extends Component {
   handleLogout = async () => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("user_id");
-    localStorage.removeItem("teamslocal")
-    this.setState = {
+    localStorage.removeItem("teamslocal");
+    this.setState({
       teams: [],
       teamForm: {
         name: "",
@@ -196,8 +199,12 @@ class App extends Component {
       },
       players: [],
       redirect: false
-    };
-    this.props.history.push('/login')
+    });
+    // console.log(this.state)
+    this.props.history.push("/login");
+    // return (
+    //   <Redirect to="/login" />
+    // )
   };
 
   authHandleChange = async e => {
@@ -216,7 +223,7 @@ class App extends Component {
       const checkUser = localStorage.getItem("jwt");
       if (checkUser !== "undefined") {
         const user = decode(checkUser);
-        const user_id = localStorage.getItem("user_id")
+        const user_id = localStorage.getItem("user_id");
         this.setState({
           currentUser: user,
           teamForm: {
@@ -225,13 +232,15 @@ class App extends Component {
           }
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      return console.log('check login')
+    }
     // try {
-      //   const checkLocalUser = localStorage.getItem("user_id")
-      //   if (checkLocalUser !== "undefined") {
-        //     this.setState({
-          //       currentUser: checkLocalUser
-          //     })
+    //   const checkLocalUser = localStorage.getItem("user_id")
+    //   if (checkLocalUser !== "undefined") {
+    //     this.setState({
+    //       currentUser: checkLocalUser
+    //     })
     //   }
     // } catch (error) {}
   };
@@ -319,15 +328,14 @@ class App extends Component {
               // } else {
               //   return <Link to="/login" />;
               // }
-              
-
 
               if (!this.state.currentUser) {
-              return (
-                <Redirect path="/login" />
-              );
+                // console.log("!user");
+                return <Redirect path="/login" />;
               } else {
-              const teams = this.state.teams
+                const teams = this.state.teams;
+                // console.log("DID IT WORK");
+                // console.log("/teams/",teams)
                 return (
                   <Teams
                     teams={teams}
@@ -336,7 +344,7 @@ class App extends Component {
                     newTeam={this.newTeam}
                     readAllTeams={this.readAllTeams}
                   />
-                )
+                );
               }
             }}
           />
@@ -361,40 +369,39 @@ class App extends Component {
               let players;
 
               if (!this.state.currentUser) {
-                return (
-                  <Redirect path="/login" />
-                )
+                return <Redirect path="/login" />;
               } else {
+                console.log('this is my message', this.state)
                 if (this.state.teams.data) {
-                team = this.state.teams.data.find(el => el.id === parseInt(id));
-                players = this.state.players.data;
-              } else {
-                const teams = JSON.parse(localStorage.getItem("teamslocal"));
-                this.setState({ teams });
-                team = teams.data.find(el => el.id === parseInt(id));
-                players = this.state.players.data;
+                  team = this.state.teams.data.find(
+                    el => el.id === parseInt(id)
+                  );
+                  players = this.state.players.data;
+                } else {
+                  const teams = JSON.parse(localStorage.getItem("teamslocal"));
+                  this.setState({ teams });
+                  team = teams.data.find(el => el.id === parseInt(id));
+                  players = this.state.players.data;
+                }
+                // console.log('passing players data down to Team.jsx',players)
+                // const teams = JSON.parse(localStorage.getItem("teamslocal"))
+                // const team = teams.data.find(el => el.id === parseInt(id)
+                // )
+                // const players = JSON.parse(localStorage.getItem("players"))
+                return (
+                  <Team
+                    id={id}
+                    team={team}
+                    handleFormChange={this.handleFormChange}
+                    mountEditForm={this.mountEditForm}
+                    editTeam={this.editTeam}
+                    teamForm={this.state.teamForm}
+                    deleteTeam={this.deleteTeam}
+                    players={players}
+                    saveTeam={this.saveTeam}
+                  />
+                );
               }
-              // console.log('passing players data down to Team.jsx',players)
-              // const teams = JSON.parse(localStorage.getItem("teamslocal"))
-              // const team = teams.data.find(el => el.id === parseInt(id)
-              // )
-              // const players = JSON.parse(localStorage.getItem("players"))
-              return (
-                <Team
-                  id={id}
-                  team={team}
-                  handleFormChange={this.handleFormChange}
-                  mountEditForm={this.mountEditForm}
-                  editTeam={this.editTeam}
-                  teamForm={this.state.teamForm}
-                  deleteTeam={this.deleteTeam}
-                  players={players}
-                  saveTeam={this.saveTeam}
-                />
-              );
-              }
-
-              
             }}
           />
         </div>
