@@ -33,6 +33,8 @@ class Teams extends Component {
   render() {
     const user_id = localStorage.getItem("user_id")
 
+    // console.log('props',this.props)
+    // console.log('state',this.state)
     return (
       <div className="team-container">
         {this.state.teams.map(team => team.user_id == user_id ? (

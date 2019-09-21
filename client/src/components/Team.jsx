@@ -23,6 +23,7 @@ class Team extends Component {
 
   componentDidMount = async() => {
     await this.getTeams()
+    this.setState({team: this.props.team})
     await this.getOneTeam()
   }
 
@@ -33,34 +34,26 @@ class Team extends Component {
 
   getOneTeam = async () => {
     const team = await readOneTeam(this.props.id)
-    this.setState({newTeamName: team.name})
+    this.setState({team: team, newTeamName: team.name})
   }
 
   render() {
-    console.log('team jsx props', this.props)
+    console.log('-----state', this.state)
+    console.log('-----props', this.props)
     const { team } = this.props;
     const players = this.props.players;
       return (
-
-
-
-
         <div className="team-wrapper">
+            <hr />
+            <Link to="/">Back to Team List</Link>
           <div className="team-page">
-          <div>
-            <h1>Team name</h1>
-          </div> 
-
-
-            {/* {team === undefined ? (
+            {!team ? (
               <div>
-                <h1>Team Name</h1>
-                <hr />
-                <Link to="/">Back to Team List</Link>
+                <h1>{this.state.newTeamName}</h1>
               </div>
             ) : (
               <div>
-                <h1>{this.state.newTeamName}</h1>
+                <h1>{team.name}</h1>
                 <hr />
                 {this.state.isEdit ? (
                   <Route
@@ -74,7 +67,7 @@ class Team extends Component {
                           this.props.editTeam(team.id);
                           this.setState({
                             isEdit: false,
-                            newTeamName: this.props.teamForm.name
+                            newTeamName: this.props.teamForm.name,
                           });
                         }}
                         teamForm={this.props.teamForm}
@@ -104,20 +97,8 @@ class Team extends Component {
                   </div>
                 )}
               </div>
-            )} */}
-
-
-
-
-
+            )}
           </div>
-
-
-
-
-
-
-
           <div className="players-page">
             <div className="players-page-columns">
               <p className="p-columns p-name">Player Name</p>
