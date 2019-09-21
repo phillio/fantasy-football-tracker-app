@@ -20,6 +20,13 @@ class Teams extends Component {
     await this.getPlayers()
   }
 
+  async componentDidUpdate() {
+    if (this.props.deletedTeam) {
+      const updatedTeams = await readAllTeams()
+      this.setState({teams: updatedTeams.data})
+    }
+  }
+
   getTeams = async () => {
       const teams = await readAllTeams()
       this.setState({teams: teams.data})

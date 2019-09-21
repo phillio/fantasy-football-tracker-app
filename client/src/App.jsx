@@ -38,7 +38,8 @@ class App extends Component {
       password: ""
     },
     players: [],
-    redirect: false
+    redirect: false,
+    wasDeleted: ""
   };
 
   getTeams = async () => {
@@ -63,6 +64,8 @@ class App extends Component {
 
   deleteTeam = async id => {
     await destroyTeam(id);
+    this.setState({wasDeleted: id})
+    console.log('was delete',this.state.wasDeleted)
   };
 
   handleFormChange = e => {
@@ -274,6 +277,7 @@ class App extends Component {
                     teamForm={this.state.teamForm}
                     handleFormChange={this.handleFormChange}
                     newTeam={this.newTeam}
+                    deletedTeam={this.state.wasDeleted}
                   />
                 )
               }

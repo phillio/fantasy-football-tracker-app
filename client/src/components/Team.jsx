@@ -99,7 +99,8 @@ class Team extends Component {
                   </Link>
                   <button
                     onClick={() => {
-                      this.props.deleteTeam(team.id);
+                      this.props.deleteTeam(this.props.id);
+                      this.setState({wasDeleted: `${this.props.id} was deleted`})
                       this.props.history.push("/");
                     }}
                   >
@@ -150,6 +151,7 @@ class Team extends Component {
                   <button
                     onClick={() => {
                       this.props.deleteTeam(this.props.id);
+                      this.setState({wasDeleted: `${this.props.id} was deleted`})
                       this.props.history.push("/");
                     }}
                   >
