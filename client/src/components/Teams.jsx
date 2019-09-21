@@ -45,7 +45,7 @@ class Teams extends Component {
               this.props.history.push(`/teams/${team.id}`);
             }}
           >
-            <p>{team.name}</p>
+            <h3>{team.name}</h3>
           </div>
         ) : null
         )}

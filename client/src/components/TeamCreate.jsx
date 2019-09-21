@@ -36,7 +36,6 @@ class TeamCreate extends Component {
   };
 
   render() {
-
     if (this.state.redirect === false) {
         return (
           <div className="create-form">
