@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 
 
 import { getPlayers, readAllTeams } from "../services/api-helper";
@@ -9,44 +10,29 @@ class Teams extends Component {
     super(props);
     this.state = {
       teams: [],
-      refresh: false
+      refresh: false,
+      players: []
     };
   }
 
   componentDidMount = async () => {
-    //   this.renderTeams()
-    //   this.setState({teams: this.props.teams.data})
     await this.getTeams()
+    await this.getPlayers()
   }
-
-//   renderTeams = () => {
-//       const getTeams = localStorage.getItem("teams")
-//       this.setState({teams: getTeams})
-//   }
-
-
-
-
 
   getTeams = async () => {
       const teams = await readAllTeams()
       this.setState({teams: teams.data})
-    //   console.log('teams getteams',this.state.teams)
   }
 
   getPlayers = async () => {
       const players = await getPlayers()
+      this.setState({players: players.data})
   }
 
   render() {
-    //   const teams = this.props.teams.data
-    //   const storeTeams = localStorage.setItem("teams", teams)
-    //   console.log(storeTeams)
-    // console.log('props',this.props)
     const user_id = localStorage.getItem("user_id")
-    // console.log('teams jsx user id',user_id)
-    // console.log('teams jsx teams-data', this.props.teams.data)
-    // console.log('dumb props',this.props)
+
     return (
       <div className="team-container">
         {this.state.teams.map(team => team.user_id == user_id ? (
@@ -61,9 +47,9 @@ class Teams extends Component {
           </div>
         ) : null
         )}
-        <div
+        <Link
+          to="/create/team"
           className="team-card"
-          onClick={() => this.props.history.push("/create/team")}
         >
           <img
             alt="Create a new team"
@@ -71,7 +57,7 @@ class Teams extends Component {
             className="plus-sign"
           />
           <h3>Create a new team</h3>
-        </div>
+        </Link>
       </div>
     );
     // }

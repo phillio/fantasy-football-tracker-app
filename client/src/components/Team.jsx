@@ -21,111 +21,78 @@ class Team extends Component {
     };
   }
 
-  componentDidMount() {
-    // this.renderPlayers()
-    this.props.mountEditForm(this.props.id);
-    this.setTeamState();
-    // this.setState({players: this.props.players})
+  componentDidMount = async() => {
+    await this.getTeams()
+    await this.getOneTeam()
   }
 
-  // renderPlayers() {
-  //     const getPlayers = localStorage.getItem("players")
-  //     this.setState({teams: getPlayers})
-  // }
+  getTeams = async () => {
+      const teams = await readAllTeams()
+      this.setState({teams: teams.data})
+  }
 
-  setTeamState = async () => {
-    // console.log('setteamstate', this.props)
-    if (this.props.team === undefined) {
-      const oneTeam = await readOneTeam(this.props.id)
-      this.setState({teamId: this.props.id, team: oneTeam})
-      // console.log('uhoh', this.state.teamId, this.state.team)
-    } else {
-      // console.log('setTS', this.props, this.state)
-      this.setState({ team: this.props.team.data });
-    }
-  };
-
-  // componentDidUpdate = async () => {
-  //   if (this.props.team === undefined) {
-  //     const teams = await Axios.get('http://localhost:3000/teams')
-  //     return this.setState({
-  //       teams: teams.data
-  //     })
-
-  //     // this.forceUpdate()
-
-  //     // console.log(this.state.teams)
-  //   }
-  // }
-
-  // setNewTeamName(e) {
-  //   this.setState({
-  //     newTeamName: e.value
-  //   })
-  // }
+  getOneTeam = async () => {
+    const team = await readOneTeam(this.props.id)
+    this.setState({newTeamName: team.name})
+  }
 
   render() {
-    // console.log("dumb team jsx props", this.props);
+    console.log('team jsx props', this.props)
     const { team } = this.props;
-    // console.log("props in Team", players);
-    const players = this.state.players;
-    // console.log(players)
-    // let newTeam;
-    // if (team) {
-    //   newTeam = team.name;
-    // } else {
-    //   newTeam = this.state.team;
-    // }
-
-    // const players = getPlayers()
-    // console.log('players-R-us', players)
-    if (players) {
-      // const storePlayers = localStorage.setItem("players", JSON.stringify(players))
-      // console.log(storePlayers)
+    const players = this.props.players;
       return (
+
+
+
+
         <div className="team-wrapper">
           <div className="team-page">
-            {team === undefined ? (
+          <div>
+            <h1>Team name</h1>
+          </div> 
+
+
+            {/* {team === undefined ? (
               <div>
-                <h1>{this.state.newTeamName}</h1>
+                <h1>Team Name</h1>
                 <hr />
                 <Link to="/">Back to Team List</Link>
               </div>
             ) : (
               <div>
-                <h1>{this.props.teamForm.name}</h1>
+                <h1>{this.state.newTeamName}</h1>
                 <hr />
                 {this.state.isEdit ? (
                   <Route
                     path={"/teams/:id/edit"}
                     render={() => (
                       <TeamEdit
+                        id={team.id}
                         handleFormChange={this.props.handleFormChange}
                         handleSubmit={e => {
                           e.preventDefault();
-                          this.props.editTeam();
+                          this.props.editTeam(team.id);
                           this.setState({
                             isEdit: false,
                             newTeamName: this.props.teamForm.name
                           });
                         }}
                         teamForm={this.props.teamForm}
-                        // changeName={this.setNewTeamName(name)}
                       />
                     )}
                   />
                 ) : (
                   <div className="player-list">
-                    <button
+                    <Link
+                      to={`/teams/${team.id}/edit`}
                       onClick={() => {
                         this.setState({
                           isEdit: true
                         });
-                        this.props.history.push(`/teams/${team.id}/edit`);
                       }}
                     >
                       Edit
-                    </button>
+                    </Link>
                     <button
                       onClick={() => {
                         this.props.deleteTeam(team.id);
@@ -137,8 +104,20 @@ class Team extends Component {
                   </div>
                 )}
               </div>
-            )}
+            )} */}
+
+
+
+
+
           </div>
+
+
+
+
+
+
+
           <div className="players-page">
             <div className="players-page-columns">
               <p className="p-columns p-name">Player Name</p>
@@ -170,7 +149,7 @@ class Team extends Component {
               <p className="p-columns p-ssnfum">Ssn's Fum. Lost</p>
               <p className="p-columns p-ssnfumtd">Ssn's Fum. TD</p>
             </div>
-            {this.state.players.map(player => {
+            {players.map(player => {
               return (
                 <div className="player-card">
                   <p className="p-columns p-name">{player.name}</p>
@@ -245,13 +224,6 @@ class Team extends Component {
           </div>
         </div>
       );
-    } else {
-      return (
-        <div>
-          <p>uhoh</p>
-        </div>
-      );
-    }
   }
 }
 

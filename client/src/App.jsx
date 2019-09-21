@@ -42,53 +42,39 @@ class App extends Component {
   };
 
   getTeams = async () => {
-    // const teams = await readAllTeams();
-    // const players = await getPlayers();
-    // this.setState({
-    //   teams,
-    //   players
-    // });
+    const teams = await readAllTeams();
+    const players = await getPlayers();
+    this.setState({
+      teams: teams.data,
+      players: players.data
+    });
   };
 
-  newTeam = async e => {
-    // e.preventDefault();
-    // const team = await createTeam(this.state.teamForm);
-    // this.setState({
-    //   teams: team,
-    //   teamForm: {
-    //     name: ""
-    //   }
-    // });
-  };
 
-  editTeam = async () => {
-    // const { teamForm } = this.state;
-    // await updateTeam(teamForm.id, teamForm);
-    // this.setState(prevState => ({
-    //   teams: prevState.teams.data.map(team =>
-    //     team.id === teamForm.id ? teamForm : team
-    //   )
-    // }));
+  editTeam = async (id) => {
+    const { teamForm } = this.state;
+    await updateTeam(id, teamForm);
+    this.setState(prevState => ({
+      teams: prevState.teams.map(team =>
+        team.id === teamForm.id ? teamForm : team
+      )
+    }));
   };
 
   deleteTeam = async id => {
-    // await destroyTeam(id);
-    // const teams = await this.getTeams();
-    // this.setState({
-    //   teams: teams
-    // });
+    await destroyTeam(id);
   };
 
   handleFormChange = e => {
-    // const { name, value } = e.target;
-    // const user_id = localStorage.getItem("user_id");
-    // this.setState(prevState => ({
-    //   teamForm: {
-    //     ...prevState.teamForm,
-    //     [name]: value,
-    //     user_id: user_id
-    //   }
-    // }));
+    const { name, value } = e.target;
+    const user_id = localStorage.getItem("user_id");
+    this.setState(prevState => ({
+      teamForm: {
+        ...prevState.teamForm,
+        [name]: value,
+        user_id: user_id
+      }
+    }));
   };
 
   mountEditForm = async id => {
@@ -110,7 +96,7 @@ class App extends Component {
   };
 
   buttonRedirect = () => {
-    return <div>{this.renderRedirect()}</div>;
+    return this.renderRedirect()
   };
 
   newTeamRenderRedirect = () => {
@@ -128,11 +114,7 @@ class App extends Component {
       const userData = await loginUser(this.state.authFormData);
       localStorage.setItem("jwt", userData.token);
       localStorage.setItem("user_id", userData.id);
-      const user_id = localStorage.getItem("user_id");
       this.setState({
-        teamForm: {
-          user_id
-        },
         currentUser: decode(userData.token)
       });
     } catch (error) {
@@ -180,7 +162,6 @@ class App extends Component {
 
   checkForUser = async () => {
     try {
-      await this.getTeams();
       const checkUser = localStorage.getItem("jwt");
       if (checkUser !== "undefined") {
         const user = decode(checkUser);
@@ -188,7 +169,7 @@ class App extends Component {
         this.setState({
           currentUser: user,
           teamForm: {
-            name: this.state.teamForm.name,
+            name: "",
             user_id: user_id
           }
         });
@@ -200,10 +181,10 @@ class App extends Component {
 
   componentDidMount = async () => {
     await this.checkForUser();
+    await this.getTeams();
   };
 
   render() {
-    console.log(this.state)
     return (
       <div className="app-container">
 
@@ -211,7 +192,7 @@ class App extends Component {
 
 
           <h1>
-            <Link to="/login" onClick={() => this.setState({ teamForm: { name: "" } })}>
+            <Link to="/" onClick={() => this.setState({ teamForm: { name: "" } })}>
               Fantasy Football Tracker App
             </Link>
           </h1>
@@ -276,18 +257,52 @@ class App extends Component {
 
 
 
+
+          <Route
+            exact
+            path="/"
+            render={props => {
+              if (!this.state.currentUser) {
+              return (
+                <Redirect path="/login" />
+              );
+              } else {
+              const teams = this.state.teams
+                return (
+                  <Teams
+                    teams={teams}
+                    teamForm={this.state.teamForm}
+                    handleFormChange={this.handleFormChange}
+                    newTeam={this.newTeam}
+                  />
+                )
+              }
+            }}
+          />
+
           <Route
             path="/create/team"
             render={() => (
-              <TeamCreate/>
+              <TeamCreate />
             )}
           />
           <Route
             path="/teams/:id"
             render={props => {
               const { id } = props.match.params;
+              const team = this.state.teams.find(el => el.id === parseInt(id));
                 return (
-                  <Team />
+                  <Team 
+                    id={id}
+                    team={team}
+                    handleFormChange={this.handleFormChange}
+                    mountEditForm={this.mountEditForm}
+                    editTeam={this.editTeam}
+                    teamForm={this.state.teamForm}
+                    deleteTeam={this.deleteTeam}
+                    players={this.state.players}
+                    saveTeam={this.saveTeam}
+                  />
                 );
               }
             }
@@ -295,131 +310,18 @@ class App extends Component {
 
 
           
-        </div>
 
+
+
+        </div>
 
 
       </div>
     );
   }
 
-  // render() {
-  //   return (
-  //     <div className="app-container">
-  //       <header>
-  //         <h1>
-  //           <Link
-  //             to="/login"
-  //             onClick={() =>
-  //               this.setState({
-  //                 teamForm: {
-  //                   name: ""
-  //                 }
-  //               })
-  //             }
-  //           >
-  //             Fantasy Football Tracker App
-  //           </Link>
-  //         </h1>
-  //         <div>
-  //           {this.state.currentUser ? (
-  //             <>
-  //               <p>{this.state.currentUser.username}</p>
-  //               <button onClick={this.handleLogout}>Logout</button>
-  //             </>
-  //           ) : (
-  //             <button onClick={this.handleLoginButton}>Login / Register</button>
-  //           )}
-  //         </div>
-  //       </header>
-  //       <div className="app-body">
-  //         <Route
-  //           exact
-  //           path="/login"
-  //           render={props => {
-  //             if (!this.state.currentUser) {
-  //               return (
-  //                 <Login
-  //                   handleLogin={this.handleLogin}
-  //                   handleChange={this.authHandleChange}
-  //                   formData={this.state.authFormData}
-  //                 />
-  //               );
-  //             } else {
-  //               return this.buttonRedirect();
-  //             }
-  //           }}
-  //         />
 
-  //         <Route
-  //           exact
-  //           path="/register"
-  //           render={props => {
-  //             if (!this.state.currentUser) {
-  //               return (
-  //                 <Register
-  //                   handleRegister={this.handleRegister}
-  //                   handleChange={this.authHandleChange}
-  //                   formData={this.state.authFormData}
-  //                 />
-  //               );
-  //             } else {
-  //               return this.buttonRedirect();
-  //             }
-  //           }}
-  //         />
-  //         
-  //         <Route
-  //           path="/create/team"
-  //           render={() => (
-  //             <TeamCreate
-  //               user_id={this.state.teamForm.user_id}
-  //               handleFormChange={this.handleFormChange}
-  //               teamForm={this.state.teamForm}
-  //               newTeam={this.newTeam}
-  //               newRedirect={this.newTeamRenderRedirect}
-  //               teams={this.state.teams}
-  //             />
-  //           )}
-  //         />
-  //         <Route
-  //           path="/teams/:id"
-  //           render={props => {
-  //             const { id } = props.match.params;
-  //             let team;
-  //             let players;
 
-  //             if (!this.state.currentUser) {
-  //               return <Redirect path="/login" />;
-  //             } else {
-  //               console.log('this is my message', this.state)
-  //               if (this.state.teams.data) {
-  //                 team = this.state.teams.data.find(
-  //                   el => el.id === parseInt(id)
-  //                 );
-  //                 players = this.state.players.data;
-  //               } else {
-  //               }
-  //               return (
-  //                 <Team
-  //                   id={id}
-  //                   team={team}
-  //                   handleFormChange={this.handleFormChange}
-  //                   mountEditForm={this.mountEditForm}
-  //                   editTeam={this.editTeam}
-  //                   teamForm={this.state.teamForm}
-  //                   deleteTeam={this.deleteTeam}
-  //                   players={players}
-  //                   saveTeam={this.saveTeam}
-  //                 />
-  //               );
-  //             }
-  //           }}
-  //         />
-  //       </div>
-  //     </div>
-  //   );
-  // }
 }
 
 export default withRouter(App);

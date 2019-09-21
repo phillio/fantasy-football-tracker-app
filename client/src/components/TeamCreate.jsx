@@ -16,18 +16,10 @@ class TeamCreate extends Component {
     };
   }
 
-  // handleSubmit = async () => {
-  //     await this.props.newTeam()
-  //     this.setState({redirect: true})
-  //     await this.props.newRedirect()
-  // }
-
-
   newTeam = async e => {
     e.preventDefault();
     console.log('teamcreate newteam',this.state.teamForm);
     const newTeam = await createTeam(this.state.teamForm);
-    // console.log(newTeam)
     this.setState({newTeam: newTeam, redirect: true})
   };
 
@@ -44,7 +36,6 @@ class TeamCreate extends Component {
   };
 
   render() {
-    // console.log("teamcreate props", this.props);
 
     if (this.state.redirect === false) {
         return (
@@ -66,13 +57,10 @@ class TeamCreate extends Component {
           </div>
         );
     } else {
-        // this.setState({redirect: false})
         return (
             <Redirect to={`/teams/${this.state.newTeam.id}`}/>
         )
     }
-
-
 
 
   }
