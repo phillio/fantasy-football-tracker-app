@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_12_215720) do
+ActiveRecord::Schema.define(version: 2019_09_17_093155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,11 +20,31 @@ ActiveRecord::Schema.define(version: 2019_09_12_215720) do
     t.string "teamAbbr"
     t.string "rosterSlot"
     t.string "percentOwned"
-    t.string "rank"
-    t.string "fantasyPts"
-    t.string "fantasyProjectedPts"
-    t.string "weekStats"
-    t.string "seasonStats"
+    t.string "seasonRank"
+    t.string "fantasyPtsSeason"
+    t.string "fantasyPtsWeek"
+    t.string "fantasyPtsWeekValue"
+    t.string "fantasyProjectedPtsSeason"
+    t.string "fantasyProjectedPtsWeek"
+    t.string "fantasyProjectedPtsWeekValue"
+    t.string "weekStatsPassYds"
+    t.string "weekStatsPassTD"
+    t.string "weekStatsPassInt"
+    t.string "weekStatsRushYds"
+    t.string "weekStatsRushTD"
+    t.string "weekStatsRecYds"
+    t.string "weekStatsRecTD"
+    t.string "weekStatsFumLost"
+    t.string "weekStatsFumTD"
+    t.string "seasonStatsPassYds"
+    t.string "seasonStatsPassTD"
+    t.string "seasonStatsPassInt"
+    t.string "seasonStatsRushYds"
+    t.string "seasonStatsRushTD"
+    t.string "seasonStatsRecYds"
+    t.string "seasonStatsRecTD"
+    t.string "seasonStatsFumLost"
+    t.string "seasonStatsFumTD"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -40,7 +60,7 @@ ActiveRecord::Schema.define(version: 2019_09_12_215720) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
     t.string "username"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

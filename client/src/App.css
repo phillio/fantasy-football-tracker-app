@@ -1,33 +1,295 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-container {
   display: flex;
   flex-direction: column;
+  text-align: center;
+  /* background-image: url("https://image.shutterstock.com/z/stock-vector-modern-professional-fantasy-sports-template-logo-design-457880965.jpg"); */
+  height: 100vh;
+}
+
+
+h1 {
+  margin: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Arial';
+  text-align: left;
+  background: linear-gradient(to top, #081cd3, #5b9ef7, #a7cffd);
+  width: 100%;
+  top: 0;
+  height: 10vh;
+}
+
+header>h1>a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.app-body {
+  display: flex;
+  background-image: url('./pics/background.jpg');
+  background-repeat: none;
+  background-size: cover;
+  width: 100vw;
+  height: 90vh;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.auth-container {
+  background: linear-gradient(to bottom, #16b911, #7aff90, #bbffb9);
+  width: 250px;
+  height: 500px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.create-form {
+  display: grid;
+  width: 20rem;
+  margin: 15rem auto;
+  background: #d6d6d6;
+  padding: 2rem 2rem 3.5rem 2rem;
+}
+
+img {
+  max-width: 15rem;
+  padding: 2rem;
+}
+
+.team-container {
+  width: 50vw;
+  min-width: 640px;
+  height: 60vh;
+  padding-top: 10rem;
+}
+
+.team-create {
+  background: lightgrey;
+}
+
+.team-card {
+  cursor: pointer;
+  background: lightgrey;
+  width: 100%;
+  height: 5vh;
+}
+
+.team-page {
+  display: flex;
+  margin: 10px auto;
+  padding: 4px;
+  background: #f09e9e;
+  width: 300px;
+  justify-content: center;
+}
+
+.team-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.team-link-home {
+  background: #f09e9e;
+}
+
+.players-page {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 95vw;
+  height: 800px;
+  overflow: auto;
+}
+
+.players-page-columns {
+  display: inline-flex;
+  width: auto;
+}
+
+.player-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.p-columns {
+  margin: 0 2px 0 0;
+  padding: 5px;
+  box-shadow: inset 2px 0 3px #000000;
+}
+
+.p-name {
+  text-align: left;
+  min-width: 200px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-team {
+  text-align: left;
+  min-width: 60px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-pos {
+  text-align: center;
+  min-width: 70px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-own {
+  text-align: left;
+  min-width: 55px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-rank {
+  min-width: 70px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-totalpts {
+  min-width: 60px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-ssnproj {
+  text-align: left;
+  min-width: 75px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-wknum {
+  min-width: 60px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-wkpts {
+  min-width: 60px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-wkproj {
+  min-width: 60px;
+  background-color: #fdf90b;
+  margin: 0;
+}
+
+.p-wkpassyds {
+  min-width: 55px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-wkpasstd {
+  min-width: 55px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-wkpassint {
+  min-width: 55px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-wkrushyds {
+  min-width: 55px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-wkrushtd {
+  min-width: 55px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-wkrecyd {
+  min-width: 55px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-wkrectd {
+  min-width: 55px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-wkfum {
+  min-width: 55px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-wkfumtd {
+  min-width: 55px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-ssnpassyds {
+  min-width: 55px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-ssnpasstd {
+  min-width: 55px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-ssnpassint {
+  min-width: 55px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-ssnrushyds {
+  min-width: 55px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-ssnrushtd {
+  min-width: 55px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-ssnrecyd {
+  min-width: 55px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-ssnrectd {
+  min-width: 55px;
+  background-color: #99dfffbb;
+  margin: 0;
+}
+
+.p-ssnfum {
+  min-width: 55px;
+  background-color: #bbffb9;
+  margin: 0;
+}
+
+.p-ssnfumtd {
+  min-width: 55px;
+  background-color: #99dfffbb;
+  margin: 0;
 }
