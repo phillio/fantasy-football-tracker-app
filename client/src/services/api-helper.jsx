@@ -1,5 +1,5 @@
 import Axios from "axios";
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://fantasy-football-tracker-app.herokuapp.com/";
 
 export const loginUser = loginData => {
   const opts = {
