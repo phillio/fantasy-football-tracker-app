@@ -14,11 +14,10 @@ h1 {
 
 header {
   display: flex;
+  justify-content: space-between;
   font-family: 'Arial';
   text-align: left;
-  padding: 2rem;
   background: linear-gradient(to top, #081cd3, #5b9ef7, #a7cffd);
-  background-repeat: none;
   width: 100%;
   top: 0;
   height: 10vh;
@@ -31,8 +30,11 @@ header>h1>a {
 
 .app-body {
   display: flex;
-  width: 100%;
-  height: auto;
+  background-image: url('./pics/background.jpg');
+  background-repeat: none;
+  background-size: cover;
+  width: 100vw;
+  height: 90vh;
   align-items: center;
   justify-content: center;
 }
@@ -56,21 +58,22 @@ img {
   padding: 2rem;
 }
 
-.plus-sign {
-  max-width: 4rem;
-  cursor: pointer;
+.team-container {
+  width: 50vw;
+  min-width: 640px;
+  height: 60vh;
+  padding-top: 10rem;
 }
 
-.team-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-  grid-gap: 10px;
-  margin: 8rem 10rem;
+.team-create {
+  background: lightgrey;
 }
 
 .team-card {
   cursor: pointer;
   background: lightgrey;
+  width: 100%;
+  height: 5vh;
 }
 
 .team-page {
@@ -87,6 +90,10 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.team-link-home {
+  background: #f09e9e;
 }
 
 .players-page {

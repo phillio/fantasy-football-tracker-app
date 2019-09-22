@@ -44,6 +44,12 @@ class Teams extends Component {
     // console.log('state',this.state)
     return (
       <div className="team-container">
+        <Link
+          to="/create/team"
+          className="team-card"
+        >
+        <h3 className="team-create" >Create a new team</h3>
+        </Link>
         {this.state.teams.map(team => team.user_id == user_id ? (
           <div
             key={team.id}
@@ -56,17 +62,6 @@ class Teams extends Component {
           </div>
         ) : null
         )}
-        <Link
-          to="/create/team"
-          className="team-card"
-        >
-          <img
-            alt="Create a new team"
-            src="https://image.flaticon.com/icons/png/512/14/14980.png"
-            className="plus-sign"
-          />
-          <h3>Create a new team</h3>
-        </Link>
       </div>
     );
     // }

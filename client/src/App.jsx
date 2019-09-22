@@ -197,6 +197,8 @@ class App extends Component {
           <h1>
             <Link to="/" onClick={() => this.setState({ teamForm: { name: "" } })}>
               Fantasy Football Tracker App
+            <br />
+            <h5>Go Home</h5>
             </Link>
           </h1>
 

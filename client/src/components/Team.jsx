@@ -57,7 +57,7 @@ class Team extends Component {
     return (
       <div className="team-wrapper">
         <hr />
-        <Link to="/" onClick={() => this.forceUpdate}>
+        <Link className="team-link-home" to="/" onClick={() => this.forceUpdate}>
           Back to Team List
         </Link>
         <div className="team-page">
