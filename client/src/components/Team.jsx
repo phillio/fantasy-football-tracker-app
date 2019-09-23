@@ -38,22 +38,9 @@ class Team extends Component {
     this.setState({ team: team, newTeamName: team.name });
   };
 
-  // makeLink = async () => {
-  //   if(this.state.team) {
-  //     return (
-  //       <Link to={`/teams/${this.state.team.id}/edit`} >Edit</Link>
-  //     )
-  //   }
-  // }
-
   render() {
-    console.log("-----state", this.state);
-    console.log("-----props", this.props);
     const { team } = this.props;
     const players = this.props.players;
-    // console.log(this.props.match.params)
-    // const oldId = parseInt(this.props.match.params)
-    // console.log(oldId)
     return (
       <div className="team-wrapper">
         <hr />
@@ -64,7 +51,7 @@ class Team extends Component {
           {team ? 
             (
             <div>
-              <h1>{team.name}</h1>
+              <h1>{this.state.newTeamName}</h1>
               <hr />
               {this.state.isEdit ? (
                 <Route
@@ -87,15 +74,15 @@ class Team extends Component {
                 />
               ) : (
                 <div className="player-list">
-                  <Link
-                    to={`/teams/${team.id}/edit`}
+                  <Link to={`/teams/${team.id}/edit`}>
+                  <button
                     onClick={() => {
                       this.setState({
                         isEdit: true
                       });
-                    }}
-                  >
+                    }}>
                     Edit
+                  </button>
                   </Link>
                   <button
                     onClick={() => {
@@ -138,15 +125,15 @@ class Team extends Component {
                 />
               ) : (
                 <div className="player-list">
-                  <Link
-                    to={`/teams/${this.props.id}/edit`}
+                  <Link to={`/teams/${this.props.id}/edit`}>
+                  <button
                     onClick={() => {
                       this.setState({
                         isEdit: true
                       });
-                    }}
-                  >
+                    }}>
                     Edit
+                  </button>
                   </Link>
                   <button
                     onClick={() => {

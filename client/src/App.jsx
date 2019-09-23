@@ -39,7 +39,8 @@ class App extends Component {
     },
     players: [],
     redirect: false,
-    wasDeleted: ""
+    wasDeleted: "",
+    wasUpdated: ""
   };
 
   getTeams = async () => {
@@ -58,14 +59,14 @@ class App extends Component {
     this.setState(prevState => ({
       teams: prevState.teams.map(team =>
         team.id === teamForm.id ? teamForm : team
-      )
+      ),
+      wasUpdated: id
     }));
   };
 
   deleteTeam = async id => {
     await destroyTeam(id);
     this.setState({wasDeleted: id})
-    console.log('was delete',this.state.wasDeleted)
   };
 
   handleFormChange = e => {
@@ -194,18 +195,18 @@ class App extends Component {
         <header>
 
 
-          <h1>
+          <h1 className="logo-div">
             <Link to="/" onClick={() => this.setState({ teamForm: { name: "" } })}>
-              Fantasy Football Tracker App
+              <span className="logo-text">Fantasy Football Tracker App</span>
             <br />
-            <h5>Go Home</h5>
+            <h5 className="logo-text">Go Home</h5>
             </Link>
           </h1>
 
 
           <div>
             {this.state.currentUser ? (
-              <div>
+              <div className="logged-div">
                 <p>{this.state.currentUser.username}</p>
                 <button onClick={this.handleLogout}>Logout</button>
               </div>
@@ -299,6 +300,7 @@ class App extends Component {
               const team = this.state.teams.find(el => el.id === parseInt(id));
                 return (
                   <Team 
+                    key={id}
                     id={id}
                     team={team}
                     handleFormChange={this.handleFormChange}
@@ -308,6 +310,8 @@ class App extends Component {
                     deleteTeam={this.deleteTeam}
                     players={this.state.players}
                     saveTeam={this.saveTeam}
+                    teamName={this.state.teamForm.name}
+                    wasUpdated={this.state.wasUpdated}
                   />
                 );
               }
