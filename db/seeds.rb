@@ -3,7 +3,7 @@ def get_players
     require 'uri'
     require 'net/http'
     require 'openssl'
-    require 'JSON'
+    require 'json'
 
     # https://www.twilio.com/blog/2015/10/4-ways-to-parse-a-json-api-with-ruby.html
     require 'httparty'

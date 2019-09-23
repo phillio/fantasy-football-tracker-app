@@ -1,4 +1,6 @@
 import Axios from "axios";
+// const baseUrl = "https://fantasy-football-tracker-app.herokuapp.com";
+
 const baseUrl = "http://localhost:3000";
 
 export const loginUser = loginData => {
@@ -33,7 +35,6 @@ const createTeam = data => {
       "Content-Type": "application/json"
     }
   };
-  // console.log(opts)
   return fetch(`${baseUrl}/teams`, opts).then(resp => resp.json());
 };
 
@@ -72,14 +73,7 @@ const destroyTeam = id => {
 const getPlayers = async () => {
   try {
     const players = await Axios.get(`${baseUrl}/players`)
-    // console.log('api-helper getplayrs', players)
     return players
-    // console.log(players)
-    
-
-    // const resp = await fetch(`${baseUrl}/players`)
-    // console.log(resp)
-
   } catch (error) {
     throw error
   }

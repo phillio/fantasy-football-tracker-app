@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 function TeamEdit(props) {
-    // console.log(props)
   return (
     <div>
       <h3>Edit Team</h3>
