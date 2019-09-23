@@ -93,7 +93,13 @@ header>h1>a {
   justify-content: center;
 }
 
-.auth-container {
+.auth-container-login {
+  background: linear-gradient(to bottom, #16b911, #7aff90, #bbffb9);
+  width: 250px;
+  height: 500px;
+}
+
+.auth-container-register {
   background: linear-gradient(to bottom, #16b911, #7aff90, #bbffb9);
   width: 250px;
   height: 620px;

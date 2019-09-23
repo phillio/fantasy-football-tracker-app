@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Register = (props) => {
 
   return (
-    <div className="auth-container">
+    <div className="auth-container-register">
       <h2>Register</h2>
       <hr />
       <form onSubmit={props.handleRegister} >
