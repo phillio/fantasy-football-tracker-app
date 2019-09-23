@@ -10,7 +10,7 @@ Great for people new to fantasy football (get a quick list of the season's top f
 
 ### Screenshot:
 
-![Fantasy Football Tracker](https://raw.githubusercontent.com/phillio/fantasy-football-tracker-app/master/fantasy-football-tracker-app/client/src/pics/readmepic.png)
+![Fantasy Football Tracker](https://raw.githubusercontent.com/phillio/fantasy-football-tracker-app/master/client/src/pics/readmepic.png)
 
 **This app was built on: React on Rails!**
 **(Built on HTML, CSS, Javascript, React, and Ruby on Rails!)**
