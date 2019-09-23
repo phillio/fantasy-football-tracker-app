@@ -12,7 +12,6 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 
 import {
-  createTeam,
   readAllTeams,
   updateTeam,
   destroyTeam,
@@ -39,7 +38,8 @@ class App extends Component {
     },
     players: [],
     redirect: false,
-    wasDeleted: ""
+    wasDeleted: "",
+    wasUpdated: ""
   };
 
   getTeams = async () => {
@@ -58,14 +58,14 @@ class App extends Component {
     this.setState(prevState => ({
       teams: prevState.teams.map(team =>
         team.id === teamForm.id ? teamForm : team
-      )
+      ),
+      wasUpdated: id
     }));
   };
 
   deleteTeam = async id => {
     await destroyTeam(id);
     this.setState({wasDeleted: id})
-    console.log('was delete',this.state.wasDeleted)
   };
 
   handleFormChange = e => {
@@ -194,20 +194,21 @@ class App extends Component {
         <header>
 
 
-          <h1>
-            <Link to="/" onClick={() => this.setState({ teamForm: { name: "" } })}>
-              Fantasy Football Tracker App
-            <br />
-            <h5>Go Home</h5>
+          <div className="logo-div">
+            <Link className="logo-div" to="/" onClick={() => this.setState({ teamForm: { name: "" } })}>
+              <h1 className="logo-text" id="app-title">FANTASY FOOTBALL TRACKER APP</h1>
+              <br />
+              <h3 className="logo-text">Go Home</h3>
             </Link>
-          </h1>
+          </div>
 
 
           <div>
             {this.state.currentUser ? (
-              <div>
-                <p>{this.state.currentUser.username}</p>
-                <button onClick={this.handleLogout}>Logout</button>
+              <div className="logged-div">
+                <h5 className="logged-div-children">Logged in as:</h5>
+                <h2 className="logged-div-children" id="logged-div-user" >{this.state.currentUser.username}</h2>
+                <button className="logged-div-children" id="logged-div-button" onClick={this.handleLogout}>Logout</button>
               </div>
             ) : (
               <button onClick={this.handleLoginButton}>Login / Register</button>
@@ -299,6 +300,7 @@ class App extends Component {
               const team = this.state.teams.find(el => el.id === parseInt(id));
                 return (
                   <Team 
+                    key={id}
                     id={id}
                     team={team}
                     handleFormChange={this.handleFormChange}
@@ -308,6 +310,8 @@ class App extends Component {
                     deleteTeam={this.deleteTeam}
                     players={this.state.players}
                     saveTeam={this.saveTeam}
+                    teamName={this.state.teamForm.name}
+                    wasUpdated={this.state.wasUpdated}
                   />
                 );
               }

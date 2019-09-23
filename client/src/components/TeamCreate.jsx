@@ -18,7 +18,6 @@ class TeamCreate extends Component {
 
   newTeam = async e => {
     e.preventDefault();
-    console.log('teamcreate newteam',this.state.teamForm);
     const newTeam = await createTeam(this.state.teamForm);
     this.setState({newTeam: newTeam, redirect: true})
   };
