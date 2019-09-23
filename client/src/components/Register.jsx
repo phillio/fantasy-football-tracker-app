@@ -16,7 +16,6 @@ const Register = (props) => {
         <p>Email:</p>
         <input name="email" type="text" value={props.formData.email} onChange={props.handleChange} />
         <p>Password:</p>
-        <br />
         <p>(6 Characters minimum!)</p>
         <input name="password" type="password" value={props.formData.password} onChange={props.handleChange} />
         <hr/>
