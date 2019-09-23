@@ -3,8 +3,7 @@ import TeamEdit from "./TeamEdit";
 import { Link, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 
-import { readAllTeams, getPlayers, readOneTeam } from "../services/api-helper";
-import Axios from "axios";
+import { readAllTeams, readOneTeam } from "../services/api-helper";
 
 class Team extends Component {
   constructor(props) {

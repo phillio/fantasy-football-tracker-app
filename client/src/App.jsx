@@ -12,7 +12,6 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 
 import {
-  createTeam,
   readAllTeams,
   updateTeam,
   destroyTeam,
@@ -195,20 +194,21 @@ class App extends Component {
         <header>
 
 
-          <h1 className="logo-div">
-            <Link to="/" onClick={() => this.setState({ teamForm: { name: "" } })}>
-              <span className="logo-text">Fantasy Football Tracker App</span>
-            <br />
-            <h5 className="logo-text">Go Home</h5>
+          <div className="logo-div">
+            <Link className="logo-div" to="/" onClick={() => this.setState({ teamForm: { name: "" } })}>
+              <h1 className="logo-text" id="app-title">FANTASY FOOTBALL TRACKER APP</h1>
+              <br />
+              <h3 className="logo-text">Go Home</h3>
             </Link>
-          </h1>
+          </div>
 
 
           <div>
             {this.state.currentUser ? (
               <div className="logged-div">
-                <p>{this.state.currentUser.username}</p>
-                <button onClick={this.handleLogout}>Logout</button>
+                <h5 className="logged-div-children">Logged in as:</h5>
+                <h2 className="logged-div-children" id="logged-div-user" >{this.state.currentUser.username}</h2>
+                <button className="logged-div-children" id="logged-div-button" onClick={this.handleLogout}>Logout</button>
               </div>
             ) : (
               <button onClick={this.handleLoginButton}>Login / Register</button>
