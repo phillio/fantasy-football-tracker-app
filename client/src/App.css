@@ -6,8 +6,8 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  height: 94vh;
-  width: 94vw;
+  height: 100vh;
+  width: 100vw;
   /* min-width: 1040px; */
   font-family: 'BebasNeueRegular';
   font-size: 20px;
